@@ -25,5 +25,33 @@ Constraints:
 -231 <= nums[i] <= 231 - 1 */
 
 public class IncreasingTripletSubsequence {
-    
+    public static boolean increasingTriplet(int[] nums) {
+
+        if(nums.length < 3) return false;
+
+        int i = nums[0];
+        int j = nums[1];
+        int k;
+
+        for(int index = 0; index < nums.length - 2; index++) {
+            
+            k = nums[index + 2];
+            if(i < j && j < k) return true;
+
+            if(nums[index] < nums[index + 1] && i > nums[index]) i = nums[index];
+            else if(nums[index] > nums[index + 1] && i > nums[index + 1]) i = nums[index + 1];
+
+            if(nums[index + 1] < nums[index + 2] && i < nums[index + 1]) j = nums[index + 1]; 
+            else if(i < nums[index + 2] && i <= j) j = nums[index + 2];
+
+            if(i < j && j < k) return true;
+        }
+
+        return false;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1,0,0,0,0,10,0,0,0,10000};
+        System.out.println(increasingTriplet(nums));
+    }
 }
