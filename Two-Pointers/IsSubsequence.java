@@ -37,6 +37,6 @@ class IsSubsequence {
     }
 
     public static void main(String[] args) {
-        System.out.println(isSubsequence("lol", "lol"));
+        System.out.println(isSubsequence("lol", "alcohol"));
     }
 }
