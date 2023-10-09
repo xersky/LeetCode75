@@ -27,5 +27,29 @@ n == height.length
 0 <= height[i] <= 104 */
 
 public class ContainerWithMostWater {
+    public static int maxArea(int[] height) {
+        int max = 0;
+        int temp;
+        
+        for(int i = 0; i < height.length - 1; i++) { 
+            for(int j = i + 1; j < height.length; j++) {    
+                if(height[i] >= height[j]) {
+                    temp = height[j] * (j - i);
+                  if(max < temp) max = temp;
+                    
+                } else {
+                    temp = height[i] * (j - i);
+                   if(max < temp) max = temp;
+                }
+            }   
+        }
+        return max;
+    }
 
+    public static void main(String[] args) {
+
+        int[] height = {1,8,6,2,5,4,8,3,7};
+
+        System.out.println(maxArea(height));
+    }
 }
