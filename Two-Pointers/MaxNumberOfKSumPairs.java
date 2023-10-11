@@ -33,12 +33,29 @@ Constraints:
 public class MaxNumberOfKSumPairs {
     
     public static int maxOperations(int[] nums, int k) {
-        return 0;
+
+        int operationNumber = 0;
+
+        for(int i = 0; i < nums.length - 1; i++) {
+            if(nums[i] != 0) {
+                for(int j = i + 1; j < nums.length; j++) {
+                    if((nums[i] + nums[j]) == k && nums[j] != 0) {
+                        nums[i] = 0;
+                        nums[j] = 0;
+                        operationNumber++;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return operationNumber;
     }
-
-
 
     public static void main(String[] args) {
 
+        int[] nums = {1,2,3,4};
+
+        System.out.println(maxOperations(nums, 5));
     }
 }
