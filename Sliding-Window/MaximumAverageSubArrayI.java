@@ -22,5 +22,22 @@ n == nums.length
 -104 <= nums[i] <= 104 */
 
 public class MaximumAverageSubArrayI {
-    
+    public static double findMaxAverage(int[] nums, int k) {
+        double max = Integer.MIN_VALUE;
+        int sum;
+        
+        for(int i = 0; i < k; i++) {
+            sum = 0;
+            for(int j = i; j < i + k; j++) {
+                sum += nums[j];
+            }
+            if(max < sum) max = sum;
+        }
+        return max / k;
+     }
+
+     public static void main(String[] args) {
+        int[] nums = {-1};
+        System.out.println(findMaxAverage(nums, 1));
+     }
 }
