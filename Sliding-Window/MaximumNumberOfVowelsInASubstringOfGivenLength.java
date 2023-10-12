@@ -28,11 +28,40 @@ s consists of lowercase English letters.
 1 <= k <= s.length */
 
 public class MaximumNumberOfVowelsInASubstringOfGivenLength {
-    public int maxVowels(String s, int k) {
-        return 0;
+    public static int maxVowels(String s, int k) {
+
+        String vowels = "aoeui";
+
+        int numberOfVowels = 0;
+        int maxNumberOfVowels = 0;
+
+        for(int i = 0; i < k; i++) {
+            if(vowels.indexOf(s.charAt(i)) != -1) {
+                numberOfVowels++;
+            }
+        }
+
+        if(maxNumberOfVowels < numberOfVowels) maxNumberOfVowels = numberOfVowels;
+        if(maxNumberOfVowels == k) return maxNumberOfVowels;
+
+        for(int i = k; i < s.length(); i++) {
+
+            if(vowels.indexOf(s.charAt(i - k)) != -1) numberOfVowels--;
+            if(vowels.indexOf(s.charAt(i)) != -1) numberOfVowels++;
+
+            if(maxNumberOfVowels < numberOfVowels) maxNumberOfVowels = numberOfVowels;
+
+            if(maxNumberOfVowels == k) return maxNumberOfVowels;
+
+        }
+
+        return maxNumberOfVowels;
     }
 
     public static void main(String[] args) {
-        
+
+        String s = "abciiidef";
+
+        System.out.println(maxVowels(s, 3));
     }
 }
