@@ -43,7 +43,9 @@ public class MaxConsecutiveOnesIII {
             else if(nums[i] == 0 && flipper > 0) {
                 count++;
                 flipper--;
-            } else if(nums[i] == 0 && flipper == 0) {
+            } 
+            
+            if(nums[i] == 0 && flipper == 0) {
                 if (max < count) max = count;
                 flipper = k;
                 count = 0;

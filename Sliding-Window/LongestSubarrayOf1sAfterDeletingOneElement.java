@@ -28,7 +28,31 @@ nums[i] is either 0 or 1. */
 
 public class LongestSubarrayOf1sAfterDeletingOneElement {
     public static int longestSubarray(int[] nums) {
-        return 1;
+
+        int count = 0;
+        int index = 0;
+        int max = 0;
+        boolean isZeroDeleted = false;
+        boolean isItemDeleted = false;
+        int rollBackIndex = 0;
+
+        while (index < nums.length) {
+            if(nums[index] == 1) count++;
+            else if(nums[index] == 0 && !isZeroDeleted) {
+                isZeroDeleted = true;
+                isItemDeleted = true;
+                rollBackIndex = index;
+            } else if(nums[index] == 0 && isZeroDeleted) {
+                index = rollBackIndex;
+                count = 0;
+                isZeroDeleted = false;
+            }
+            if(max < count) max = count;
+            index++;
+        }
+
+        if (!isItemDeleted) max--;
+        return max;
     }
 
     public static void main(String[] args) {
