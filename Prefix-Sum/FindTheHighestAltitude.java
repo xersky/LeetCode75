@@ -25,10 +25,20 @@ n == gain.length
 
 public class FindTheHighestAltitude {
     public static int largestAltitude(int[] gain) {
-        return 1;
+
+        int max = 0;
+        int altitude = 0;
+
+        for(int i = 0; i < gain.length; i++) {
+            altitude += gain[i];
+            if(max < altitude) max = altitude;
+        }
+
+        return max;
     }
 
     public static void main(String[] args) {
-        
+        int[] gain = {-5,1,5,0,-7};
+        System.out.println(largestAltitude(gain));
     }
 }
