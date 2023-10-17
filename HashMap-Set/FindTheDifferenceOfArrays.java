@@ -27,9 +27,21 @@ Constraints:
 1 <= nums1.length, nums2.length <= 1000
 -1000 <= nums1[i], nums2[i] <= 1000 */
 
-public class FindTheDifferenceOfArrays {
-    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+import java.util.ArrayList;
+import java.util.List;
 
+public class FindTheDifferenceOfArrays {
+    public static List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+
+        List<List<Integer>> intList = new ArrayList<List<Integer>>();
+
+        return intList;
     }
 
+    public static void main(String[] args) {
+        int[] nums1 = {};
+        int[] nums2 = {};
+
+        System.out.println(findDifference(nums1,nums2));
+    }
 }
