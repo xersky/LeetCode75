@@ -28,19 +28,44 @@ Constraints:
 -1000 <= nums1[i], nums2[i] <= 1000 */
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class FindTheDifferenceOfArrays {
     public static List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
 
-        List<List<Integer>> intList = new ArrayList<List<Integer>>();
+        List<List<Integer>> answer = new ArrayList<List<Integer>>();
 
-        return intList;
+        List<Integer> list1 = new ArrayList<Integer>();
+        List<Integer> list2 = new ArrayList<Integer>();
+
+        //Usage of Sets maybe
+
+        Set<Integer> set1 = new HashSet<Integer>();
+        Set<Integer> set2 = new HashSet<Integer>();
+
+        for (Integer num : nums1) set1.add(num);
+
+        for (Integer num : nums2) set2.add(num);
+
+        for (Integer num : nums1) set2.remove(num);
+
+        for (Integer num : nums2) set1.remove(num);
+
+        for (Integer num : set1) list1.add(num);
+
+        for(Integer num : set2) list2.add(num);
+
+        answer.add(list1);
+        answer.add(list2);
+
+        return answer;
     }
 
     public static void main(String[] args) {
-        int[] nums1 = {};
-        int[] nums2 = {};
+        int[] nums1 = {1,2,3,3};
+        int[] nums2 = {1,1,2,2};
 
         System.out.println(findDifference(nums1,nums2));
     }
