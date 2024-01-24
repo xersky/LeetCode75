@@ -22,6 +22,27 @@ Constraints:
 1 <= arr.length <= 1000
 -1000 <= arr[i] <= 1000 */
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class UniqueNumberOfOccurences {
-    
+    public static boolean uniqueOccurrences(int[] arr) {
+        Set<Integer> setOfArr = new HashSet<Integer>();
+        Set<Integer> setOfCounter = new HashSet<Integer>();
+        int counter = 0;
+
+        for (int elem : arr) setOfArr.add(elem);
+
+        for (Integer elem : setOfArr) {
+            for(int i = 0; i < arr.length; i++) if(elem == arr[i]) counter++;
+            setOfCounter.add(counter);
+            counter = 0;
+        }
+        return setOfCounter.size() == setOfArr.size();
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {-3,0,1,-3,1,1,1,-3,10,0};
+        System.out.println(uniqueOccurrences(arr));
+    }
 }
