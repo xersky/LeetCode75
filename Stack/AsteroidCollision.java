@@ -67,9 +67,10 @@ public class AsteroidCollision {
                 if(stack.peek() < 0) stack.push(asteroids[i]);
                 else {          
                     if(asteroids[i] > 0) stack.push(asteroids[i]);
-                    else if(stack.peek() + asteroids[i] == 0) stack.pop();
-                    else if(stack.peek() + asteroids[i] < 0) {
+                    else if(stack.peek() == -asteroids[i]) stack.pop();
+                    else if(stack.peek() < -asteroids[i]) {
                         stack.pop();
+                        i--;
                         if(asteroids[i] > max) stack.push(asteroids[i]);
                     }
                 }
@@ -83,7 +84,7 @@ public class AsteroidCollision {
     
     public static void main(String[] args) {
 
-        int[] array = new int[] {10,2,-5};
+        int[] array = new int[] {-2,-2,1,-2};
         int[] arrayR = asteroidCollision(array);
 
         for (int i : arrayR) {
