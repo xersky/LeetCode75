@@ -31,47 +31,41 @@ All the integers in s are in the range [1, 300]. */
 
 public class DecodeString {
     public static String decodeString(String s) {
+        while(s.contains("[")) s = decodeSimpleBrackets(s);
+        return s.toString();
+    }
+
+    public static String decodeSimpleBrackets(String s) {
         StringBuffer kBuffer = new StringBuffer();
-        int k = 1;
         StringBuffer encodedString = new StringBuffer();
         StringBuffer result = new StringBuffer();
-        boolean isBracketOn = false;
-        
+        int bracketCounter = 0;
+        int k = 1;
         for(int i = 0; i < s.length(); i++) {
-            if(Character.isDigit(s.charAt(i))) kBuffer.append(s.charAt(i));
-            else if(!isBracketOn && s.charAt(i) != '[' && s.charAt(i) != ']') {
-                encodedString.append(s.charAt(i));
-            } else if(!isBracketOn && s.charAt(i) == '[') {
-                isBracketOn = true;
-                if(Integer.parseInt(kBuffer.toString()) == 0) k = 1;
-                else k = Integer.parseInt(kBuffer.toString());
-                kBuffer.delete(0,kBuffer.length());
-                result.append(encodedString);
-                encodedString.delete(0,encodedString.length());
-            } else if(s.charAt(i) == ']') {
-                isBracketOn = false;
-                for(int j = 0; j < k; j++) result.append(encodedString);
-                kBuffer.delete(0,kBuffer.length());
-                encodedString.delete(0,encodedString.length());
-                k = 1;
+            if(Character.isDigit(s.charAt(i)) && bracketCounter == 0) kBuffer.append(s.charAt(i));
+            else if(s.charAt(i) != '[' && bracketCounter == 0) result.append(s.charAt(i));
+            else if(s.charAt(i) == '[' && bracketCounter == 0) {
+                bracketCounter++;
+                k = kBuffer.toString().isEmpty() ? 1 : Integer.parseInt(kBuffer.toString());
+                kBuffer.delete(0, kBuffer.length());
+            } else if(s.charAt(i) == ']' && bracketCounter != 0) {
+                bracketCounter--;
+                if(bracketCounter == 0) {
+                    for(int j = 0; j < k; j++) result.append(encodedString);
+                    encodedString.delete(0, encodedString.length());
+                } else {
+                    encodedString.append(s.charAt(i));
+                }
             } else if(s.charAt(i) == '[') {
-                int r = k;
-                if(Integer.parseInt(kBuffer.toString()) == 0) k = 1;
-                else k = Integer.parseInt(kBuffer.toString());
-                kBuffer.delete(0,kBuffer.length());
-                encodedString.append(decodeString(String.valueOf(k) + s.substring(i, s.indexOf(']', i - 1) + 1)));
-                k = r;
-                i = s.indexOf(']', i - 1);
-            } else if(s.charAt(i) != ']' && s.charAt(i) != '[') {
+                bracketCounter++;
                 encodedString.append(s.charAt(i));
-            }
+            } else encodedString.append(s.charAt(i));
         }
-        result.append(encodedString);
-
+        
         return result.toString();
     }
 
     public static void main(String[] args) {
-        System.out.println(decodeString("3[a2[c]]"));
+        System.out.println(decodeString("1[1[p]1[1[j]]]"));
     }
 }
