@@ -30,13 +30,31 @@ Constraints:
 Each test case will call ping with strictly increasing values of t.
 At most 104 calls will be made to ping. */
 
-public class NumberOfRecentCalls {
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class RecentCounter {
+    Queue<Integer> requests = new LinkedList<>();
+    int counter;
+
+
     public RecentCounter() {
-        
+        this.requests.removeAll(requests);
+        this.counter = 0;
     }
     
     public int ping(int t) {
-        
+        int rangeLeft = t - 3000;
+        int rangeRight = t;
+
+        requests.add(t);
+
+        for (Integer integer : requests) {
+            if(integer <= rangeRight && integer >= rangeLeft) this.counter++;
+        }
+
+        return this.counter;
+
     }
 }
 
