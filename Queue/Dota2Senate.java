@@ -39,9 +39,32 @@ n == senate.length
 senate[i] is either 'R' or 'D'.
  */
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Dota2Senate {
-    public String predictPartyVictory(String senate) {
-        return null;
+    public static String predictPartyVictory(String senate) {
+        
+        Queue<Character> senateQueue = new LinkedList<>();
+        Character senator;
+
+        for(int i = 0; i < senate.length(); i++) senateQueue.add(senate.charAt(i));
+
+        while(true) {
+            senator = senateQueue.poll();
+            System.out.println(senateQueue);
+            if(senator == 'R'){
+                if(senateQueue.contains('D')) senateQueue.remove('D');
+                else return "Radiant";
+            } else {
+                if(senateQueue.contains('R')) senateQueue.remove('R');
+                else return "Dire";
+            }
+            senateQueue.add(senator);
+        }
+    }
+    public static void main(String[] args) {
+        System.out.println(predictPartyVictory("RDD"));
     }
     
 }
