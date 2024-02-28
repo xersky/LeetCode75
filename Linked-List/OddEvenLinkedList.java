@@ -45,7 +45,21 @@ public class OddEvenLinkedList {
     }
 
     public ListNode oddEvenList(ListNode head) {
-        return null;
-    }
+        ListNode iterator = head;
+        ListNode tail = head;
 
+        while(tail.next != null) tail = tail.next;
+
+        while(iterator.next != null) {
+            int val = iterator.next.val;
+            if(iterator.next.next != null) iterator.next = iterator.next.next;
+            iterator = iterator.next;
+        }
+        
+        tail.next = new ListNode();
+        tail = tail.next;
+        tail.val = 2;
+
+        return head;
+    }
 }
